@@ -1,0 +1,6 @@
+framework module Pods_AppStreetTask {
+  umbrella header "Pods-AppStreetTask-umbrella.h"
+
+  export *
+  module * { export * }
+}
