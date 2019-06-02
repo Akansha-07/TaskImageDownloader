@@ -19,7 +19,6 @@
 		9307319A22A2536D0079FDAD /* ScrollViewDataSouce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9307319922A2536D0079FDAD /* ScrollViewDataSouce.swift */; };
 		930731A422A268060079FDAD /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A322A268060079FDAD /* APIManager.swift */; };
 		930731A622A26BFD0079FDAD /* ImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A522A26BFD0079FDAD /* ImageDataModel.swift */; };
-		930731A922A27ECC0079FDAD /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */; };
 		930829DF22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930829DE22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift */; };
 		9318744E22A297D900631DE7 /* DetailImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318744D22A297D900631DE7 /* DetailImageVC.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +38,6 @@
 		9307319922A2536D0079FDAD /* ScrollViewDataSouce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewDataSouce.swift; sourceTree = "<group>"; };
 		930731A322A268060079FDAD /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		930731A522A26BFD0079FDAD /* ImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataModel.swift; sourceTree = "<group>"; };
-		930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		930829DE22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionReusableView.swift; sourceTree = "<group>"; };
 		9318744D22A297D900631DE7 /* DetailImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageVC.swift; sourceTree = "<group>"; };
 		BF9F2C04F224476BE2A38F89 /* Pods-AppStreetTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStreetTask.debug.xcconfig"; path = "Target Support Files/Pods-AppStreetTask/Pods-AppStreetTask.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,9 +85,8 @@
 		9307316F22A249B50079FDAD /* AppStreetTask */ = {
 			isa = PBXGroup;
 			children = (
-				930731A722A27EB20079FDAD /* Extension */,
-				930731A222A267EC0079FDAD /* APIManager */,
 				9307318C22A251650079FDAD /* ApplicationDelegate */,
+				930731A222A267EC0079FDAD /* APIManager */,
 				9307319222A252C50079FDAD /* CommonFunctions */,
 				9307318D22A2519D0079FDAD /* Constants */,
 				9307318222A24F8B0079FDAD /* MVC */,
@@ -216,14 +213,6 @@
 				930731A322A268060079FDAD /* APIManager.swift */,
 			);
 			path = APIManager;
-			sourceTree = "<group>";
-		};
-		930731A722A27EB20079FDAD /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		930829DD22A3B32000C5D0C6 /* UICollectionReusableView */ = {
@@ -370,7 +359,6 @@
 				9307319A22A2536D0079FDAD /* ScrollViewDataSouce.swift in Sources */,
 				9307317122A249B50079FDAD /* AppDelegate.swift in Sources */,
 				9318744E22A297D900631DE7 /* DetailImageVC.swift in Sources */,
-				930731A922A27ECC0079FDAD /* UIImageViewExtension.swift in Sources */,
 				930731A622A26BFD0079FDAD /* ImageDataModel.swift in Sources */,
 				9307318F22A251B30079FDAD /* Constants.swift in Sources */,
 				930731A422A268060079FDAD /* APIManager.swift in Sources */,
