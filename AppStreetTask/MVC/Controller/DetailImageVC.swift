@@ -29,7 +29,7 @@ class DetailImageVC: UIViewController {
             guard let strUrl = self.strUrl else {
                 return
             }
-            self.imgView.imageFromUrl(urlString: strUrl)
+            self.imgView.image = ApiManager.shared.downloadImageAsynchronously(strUrl, imageView: self.imgView, placeHolderImage: #imageLiteral(resourceName: "Img-1"), contentMode: .scaleAspectFill)
         })
     }
 

@@ -20,6 +20,7 @@
 		930731A422A268060079FDAD /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A322A268060079FDAD /* APIManager.swift */; };
 		930731A622A26BFD0079FDAD /* ImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A522A26BFD0079FDAD /* ImageDataModel.swift */; };
 		930731A922A27ECC0079FDAD /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */; };
+		930829DF22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930829DE22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift */; };
 		9318744E22A297D900631DE7 /* DetailImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318744D22A297D900631DE7 /* DetailImageVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		930731A322A268060079FDAD /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		930731A522A26BFD0079FDAD /* ImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataModel.swift; sourceTree = "<group>"; };
 		930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		930829DE22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionReusableView.swift; sourceTree = "<group>"; };
 		9318744D22A297D900631DE7 /* DetailImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageVC.swift; sourceTree = "<group>"; };
 		BF9F2C04F224476BE2A38F89 /* Pods-AppStreetTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStreetTask.debug.xcconfig"; path = "Target Support Files/Pods-AppStreetTask/Pods-AppStreetTask.debug.xcconfig"; sourceTree = "<group>"; };
 		E222902C59F90C82A0847A59 /* Pods_AppStreetTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStreetTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 		9307318422A24FA60079FDAD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				930829DD22A3B32000C5D0C6 /* UICollectionReusableView */,
 				9307318722A250B40079FDAD /* Cell */,
 				9307318622A2509D0079FDAD /* StoryBoard */,
 			);
@@ -221,6 +224,14 @@
 				930731A822A27ECC0079FDAD /* UIImageViewExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		930829DD22A3B32000C5D0C6 /* UICollectionReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				930829DE22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift */,
+			);
+			path = UICollectionReusableView;
 			sourceTree = "<group>";
 		};
 		B1A10EC657FCA7930E77DDA8 /* Pods */ = {
@@ -352,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				930829DF22A3B38A00C5D0C6 /* ImageCollectionReusableView.swift in Sources */,
 				9307319522A252F80079FDAD /* CollectionViewDataSource.swift in Sources */,
 				9307319122A252300079FDAD /* FirstViewController.swift in Sources */,
 				9307318B22A2511E0079FDAD /* ImageCollectionCell.swift in Sources */,

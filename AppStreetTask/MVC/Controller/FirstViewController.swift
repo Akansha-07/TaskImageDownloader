@@ -40,17 +40,26 @@ class FirstViewController: UIViewController {
     }
     
     //Set up CollectionView
-    fileprivate func setUpCollectionView() {
+    private func setUpCollectionView() {
+        
+        
         
         let cellId = CollectionViewCell.imageCollectionCell.rawValue
-        dataSource = CollectionViewDataSource(items: nil, collectionView: imgCollectionView, cellIdentifier: cellId, cellHeight: collectionWidth, cellWidth: collectionWidth, minimumLineSpacing: 10.0, minimumInteritemSpacing: 0.0)
+        dataSource = CollectionViewDataSource(items: nil, collectionView: imgCollectionView, cellIdentifier: cellId, footerIdentifier: "ImageCollectionReusableView", cellHeight: collectionWidth, cellWidth: collectionWidth, minimumLineSpacing: 10.0, minimumInteritemSpacing: 0.0, sectionFooterHeight: CGSize(width: 0.0, height: 0.0))
         dataSource?.items = arrPhotos
         dataSource?.configureCellBlock = { [weak self] (cell,item,indexpath) in
             
             guard let strUrl = self?.arrPhotos[indexpath.row].imgUrl else {
                 return
             }
-            (cell as? ImageCollectionCell)?.imgView.imageFromUrl(urlString: strUrl)
+            guard let collectionViewCell = cell as? ImageCollectionCell else {
+                return
+            }
+          
+            collectionViewCell.imgView.image = ApiManager.shared.downloadImageAsynchronously(strUrl, imageView: (cell as? ImageCollectionCell)?.imgView ?? UIImageView(), placeHolderImage: #imageLiteral(resourceName: "Img-1"), contentMode: .scaleAspectFill)
+        }
+        dataSource?.viewforFooterInSection = {[weak self] (footer,indexpath) in
+         
         }
         dataSource?.aRowSelectedListener = { [weak self] (indexpath) in
             
@@ -70,7 +79,8 @@ class FirstViewController: UIViewController {
                 if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height)
                 {
                     if !(self?.isNewDataLoading ?? false){
-                        
+                        self?.dataSource?.sectionFooterHeight = CGSize(width: 50.0, height: 50.0)
+                        self?.imgCollectionView.reloadData()
                         self?.isNewDataLoading = true
                         self?.pageCount += 1
                         self?.apiToGetDetails(text: self?.searchBar.text)
@@ -81,7 +91,7 @@ class FirstViewController: UIViewController {
     }
     
     //Set CollectionView Width
-    fileprivate func setCollectionWidth(value: CGFloat) {
+    private func setCollectionWidth(value: CGFloat) {
         guard let width = imgCollectionView.frame.size.width as? CGFloat else {return}
         
         collectionWidth = (width)/value
@@ -91,7 +101,7 @@ class FirstViewController: UIViewController {
     }
     
     //Action Sheet
-    fileprivate func openActionSheet() {
+    private func openActionSheet() {
         
         let alert = UIAlertController(title: "Switch images", message: "", preferredStyle: .actionSheet)
         
@@ -127,48 +137,52 @@ extension FirstViewController {
             self.arrPhotos.removeAll()
             self.pageCount = 1
         }
-        let url = ApiManager.shared.flickrURLFromParameters(searchString: text ?? "")
         
-        var parseUrl = URLComponents(string: url.absoluteString)!
-        
-        parseUrl.queryItems = [
-            URLQueryItem(name: "page", value: "\(pageCount)")
-        ]
-        
-        ApiManager.shared.sendRequest(url.absoluteString, params: nil) {[weak self] (isSuccess, dictResponse) in
+            let url = ApiManager.shared.flickrURLFromParameters(searchString: text ?? "")
             
-            if isSuccess {
-                DispatchQueue.main.async {
-                    self?.loader.startAnimating()
-                    
-                    if let data = dictResponse as? [String: Any] {
-                        self?.model = ImageDataModel(dict: data)
-                        self?.model?.text = text!
-                        if self?.model?.photos?.pages != 0 {
-                            self?.model?.photos?.photos.forEach({ (item) in
-                                self?.arrPhotos.append(item)
-                            })
-                            
-                        } else {
-                            self?.arrPhotos.removeAll()
-                            self?.pageCount = 1
-                            self?.lblSearch.isHidden = false
-                            self?.lblSearch.text = "No image found"
+            var parseUrl = URLComponents(string: url.absoluteString)!
+            
+            parseUrl.queryItems = [
+                URLQueryItem(name: "page", value: "\(pageCount)")
+            ]
+            
+            ApiManager.shared.sendRequest(url.absoluteString, params: nil) {[weak self] (isSuccess, dictResponse) in
+                
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        self?.loader.startAnimating()
+                        
+                        if let data = dictResponse as? [String: Any] {
+                            self?.model = ImageDataModel(dict: data)
+                            self?.model?.text = text!
+                            if self?.model?.photos?.pages != 0 {
+                                self?.model?.photos?.photos.forEach({ (item) in
+                                    self?.arrPhotos.append(item)
+                                })
+                                
+                            } else {
+                                self?.arrPhotos.removeAll()
+                                self?.pageCount = 1
+                                self?.lblSearch.isHidden = false
+                                self?.lblSearch.text = "No image found"
+                            }
+                            self?.dataSource?.items = self?.arrPhotos
+                            self?.loader.isHidden = true
+                            self?.isNewDataLoading = false
+                            self?.dataSource?.sectionFooterHeight = CGSize(width: 0.0, height: 0.0)
+                            self?.imgCollectionView.reloadData()
                         }
-                        self?.dataSource?.items = self?.arrPhotos
-                        self?.loader.isHidden = true
-                        self?.isNewDataLoading = false
-                        self?.imgCollectionView.reloadData()
                     }
+                } else {
+                    self?.loader.isHidden = true
+                    self?.lblSearch.isHidden = false
+                    self?.lblSearch.text = "No image found"
+                    
                 }
-            } else {
-                self?.loader.isHidden = true
-                self?.lblSearch.isHidden = false
-                self?.lblSearch.text = "No image found"
                 
             }
-            
-        }
+       
+        
     }
 }
 //MARK: -UISearchBar Delegate

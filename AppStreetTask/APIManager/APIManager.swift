@@ -12,7 +12,7 @@ import UIKit
 class ApiManager: NSObject {
     
     static let shared = ApiManager()
-    
+    var allImagesCache = NSCache<NSString,UIImage>()
     func flickrURLFromParameters(searchString: String) -> URL {
         
         // Build base URL
@@ -70,6 +70,48 @@ class ApiManager: NSObject {
             }
         }
         task.resume()
+    }
+    
+  
+    func downloadImageAsynchronously(_ imageURL:String, imageView:UIImageView, placeHolderImage:UIImage, contentMode:UIView.ContentMode) -> UIImage {
+        imageView.contentMode = contentMode
+        imageView.clipsToBounds = true
+        if let cacheImage = ApiManager.shared.allImagesCache.object(forKey: "\(imageURL)" as NSString) {
+            return cacheImage
+        } else {
+            // The image isn't cached, download the img data
+            // We should perform this in a background thread
+            guard let updatedURLString = imageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) as? String else {
+                 return placeHolderImage
+            }
+            guard let url = URL(string: updatedURLString) as? URL else {
+                return placeHolderImage
+            }
+            let request: Foundation.URLRequest = Foundation.URLRequest(url: url)
+            let mainQueue = OperationQueue.main
+            
+            NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue, completionHandler: { (response, data, error) -> Void in
+                if error == nil {
+                    // Convert the downloaded data in to a UIImage object
+                    let image = UIImage(data: data!)
+                    // Store the image in to our cache
+                    if(image != nil) {
+                        ApiManager.shared.allImagesCache.setObject(image!, forKey: "\(imageURL)" as NSString)
+                        // Update the cell
+                        DispatchQueue.main.async(execute: {
+                            imageView.image = image
+                        })
+                    } else {
+                        print("corrupted image")
+                        imageView.image = UIImage(named: "corruptedImage")
+                    }
+                }
+                else {
+                    print("Error")
+                }
+            })
+        }
+        return placeHolderImage
     }
     
 }
